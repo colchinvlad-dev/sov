@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виджет лайка</title>
+    <style>
+        /*Специальные стили проекта*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 50px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .card__badge {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .card__title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .card__text {
+            color: #334155;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid #e9edf2;
+        }
+
+        /*Кнопка лайка*/
+        .like-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: #f1f4f9;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .like-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+            transform: scale(1.02);
+        }
+
+        .like-btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        .like-btn .heart {
+            font-size: 22px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .like-btn .count {
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0 8px;
+            border-radius: 12px;
+        }
+
+        .like-btn.liked {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .like-btn.liked .heart {
+            transform: scale(1.15);
+            animation: likePop 0.4s ease;
+        }
+
+        @keyframes likePop {
+            0%   { transform: scale(1); }
+            30%  { transform: scale(1.4); }
+            60%  { transform: scale(0.9); }
+            100% { transform: scale(1.15); }
+        }
+
+        .like-btn.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .like-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .card__meta {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .card__meta span {
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 24px 20px;
+            }
+            .card__title {
+                font-size: 22px;
+            }
+            .like-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card__badge">Задача</div>
+        <h1 class="card__title">Задача на собеседование</h1>
+        <p class="card__text">
+            Кликните по кнопке — счётчик обновится без перезагрузки страницы.
+        </p>
+
+        <div class="card__footer">
+            <!-- Кнопка лайка  -->
+            <button
+                class="like-btn"
+                data-element-id="123"
+                data-is-liked="false"
+                data-url="like-handler.php"
+                id="likeButton"
+            >
+                <span class="heart">like</span>
+                <span class="label">Лайк</span>
+                (<span class="count">0</span>)
+            </button>
+
+            <div class="card__meta">
+                <span>ID: 1</span>
+                <span>watch: 1K</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем JS -->
+    <script src="like.js"></script>
+
+</body>
+</html>
